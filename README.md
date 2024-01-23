@@ -1,10 +1,10 @@
-#harvest-quotes
+# harvest-quotes
 
-##This product will allow farm machinery salesman to quickly generate sales quotes based on equipment pricing, discount programs, trade in calculations, and setup costs.  It will feature a webapp as well as an IOS app.
+## This product will allow farm machinery salesman to quickly generate sales quotes based on equipment pricing, discount programs, trade in calculations, and setup costs.  It will feature a webapp as well as an IOS app.
 
 Still working on getting this repo to MVP stage.  FastAPI backend will connect to a PostgreSQL database.  Frontend is TDB as well as hosting service.
 
-###Project Setup
+### Project Setup
 
 --> Download and install python 3.9
 

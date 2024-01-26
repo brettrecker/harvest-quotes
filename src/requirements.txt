@@ -1,5 +1,0 @@
-fastapi==0.109.0
-pydantic==2.5.3
-dependency-injector==4.40.0
-mangum==0.15.1
-python-dotenv==0.19.1

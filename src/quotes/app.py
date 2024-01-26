@@ -5,7 +5,7 @@ app_container = AppContainer()
 
 
 def create_app() -> FastAPI:
-    app = FastAPI(title="bNOTES EHR API", docs_url="/")
+    app = FastAPI(title="Harvest Quotes", docs_url="/")
 
     hq_endpoint = app_container.hq_endpoint()
 

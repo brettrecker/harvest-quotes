@@ -15,7 +15,7 @@ class HQEndpoints:
                                   methods=["POST"],
                                   summary="Root")
 
-        self.router.add_api_route("/quotes",
+        self.router.add_api_route("/quotes_api",
                                   self.process_message,
                                   methods=["POST", "PATCH", "PUT", "GET"],
                                   summary="Quotes")

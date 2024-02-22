@@ -1,0 +1,115 @@
+-- public.users definition
+
+-- Drop table
+
+-- DROP TABLE public.users;
+
+CREATE TABLE public.users (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	first_name varchar NOT NULL,
+	last_name varchar NOT NULL,
+	company varchar NULL,
+	roles public."user_role" NULL,
+	created_at timestamp NULL,
+	created_by uuid NULL,
+	updated_at timestamp NULL DEFAULT now(),
+	updated_by uuid NULL,
+	CONSTRAINT users_pkey PRIMARY KEY (id)
+);
+
+
+-- public.companies definition
+
+-- Drop table
+
+-- DROP TABLE public.companies;
+
+CREATE TABLE public.companies (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	company_name varchar NOT NULL,
+	address1 varchar NOT NULL,
+	address2 varchar NULL,
+	city varchar NOT NULL,
+	state varchar NOT NULL,
+	zipcode varchar NOT NULL,
+	phone_num varchar NOT NULL,
+	subscription_status varchar NULL,
+	created_at timestamp NULL,
+	created_by uuid NULL,
+	updated_at timestamp NULL DEFAULT now(),
+	updated_by uuid NULL,
+	CONSTRAINT companies_pkey PRIMARY KEY (id),
+	CONSTRAINT fk_companies_update FOREIGN KEY (updated_by) REFERENCES public.users(id),
+	CONSTRAINT fk_company_create FOREIGN KEY (created_by) REFERENCES public.users(id)
+);
+
+
+-- public.customers definition
+
+-- Drop table
+
+-- DROP TABLE public.customers;
+
+CREATE TABLE public.customers (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	first_name varchar NOT NULL,
+	last_name varchar NOT NULL,
+	phone_number varchar NULL,
+	address1 varchar NOT NULL,
+	address2 varchar NOT NULL,
+	city varchar NOT NULL,
+	state varchar NOT NULL,
+	zipcode varchar NOT NULL,
+	county_of_use varchar NOT NULL,
+	created_at timestamp NULL,
+	created_by uuid NULL,
+	updated_at timestamp NULL DEFAULT now(),
+	updated_by uuid NULL,
+	company_id uuid NULL,
+	CONSTRAINT customers_pkey PRIMARY KEY (id),
+	CONSTRAINT fk_company FOREIGN KEY (company_id) REFERENCES public.companies(id),
+	CONSTRAINT fk_customers_create FOREIGN KEY (created_by) REFERENCES public.users(id),
+	CONSTRAINT fk_customers_update FOREIGN KEY (updated_by) REFERENCES public.users(id)
+);
+
+
+-- public.quotes definition
+
+-- Drop table
+
+-- DROP TABLE public.quotes;
+
+CREATE TABLE public.quotes (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	user_id uuid NULL,
+	customer_id uuid NULL,
+	equipment varchar NOT NULL,
+	"cost" money NOT NULL,
+	margin numeric(5, 4) NOT NULL,
+	program_1 varchar NULL,
+	program_1_discount numeric(5, 4) NULL,
+	program_2 varchar NULL,
+	program_2_discount numeric(5, 4) NULL,
+	program_3 varchar NULL,
+	program_3_discount numeric(5, 4) NULL,
+	program_4 varchar NULL,
+	program_4_discount numeric(5, 4) NULL,
+	freight_cost money NULL,
+	setup_cost money NULL,
+	trade_in_equipment varchar NULL,
+	trade_in_value money NULL,
+	trade_in_recon money NULL,
+	trade_in_retail money NULL,
+	quote_discounts money NULL,
+	quote_sale_price money NOT NULL,
+	quote_trade_in_price money NULL,
+	created_at timestamp NULL,
+	created_by uuid NULL,
+	updated_at timestamp NULL DEFAULT now(),
+	updated_by uuid NULL,
+	CONSTRAINT quotes_pkey PRIMARY KEY (id),
+	CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES public.customers(id),
+	CONSTRAINT fk_quotes_create FOREIGN KEY (created_by) REFERENCES public.users(id),
+	CONSTRAINT fk_quotes_update FOREIGN KEY (updated_by) REFERENCES public.users(id),
+	CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.users(id)
+);
